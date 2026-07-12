@@ -95,97 +95,27 @@ box-shadow:0 0 25px #39ff14;
 
 .hero{
 
-height:100vh;
+position:relative;
 
-background:url("assets/banner.jpeg") center center/cover no-repeat;
+height:100vh;
 
 display:flex;
 
 justify-content:center;
+
 align-items:center;
 
-position:relative;
+overflow:hidden;
 
-}
+background:
+linear-gradient(rgba(0,0,0,.72),rgba(0,0,0,.82)),
+url("assets/banner.jpeg");
 
-.overlay{
+background-size:cover;
 
-position:absolute;
-inset:0;
+background-position:center;
 
-background:rgba(0,0,0,.72);
-
-}
-
-.hero-content{
-
-position:relative;
-
-text-align:center;
-
-padding:20px;
-
-max-width:900px;
-
-z-index:2;
-
-}
-
-.hero h1{
-
-font-size:70px;
-
-line-height:1.1;
-
-font-weight:800;
-
-margin-bottom:25px;
-
-}
-
-.hero h1 span{
-
-color:#39ff14;
-
-text-shadow:0 0 25px #39ff14;
-
-}
-
-.hero p{
-
-font-size:24px;
-
-opacity:.9;
-
-margin-bottom:40px;
-
-}
-
-.play-button{
-
-display:inline-block;
-
-background:#39ff14;
-
-color:black;
-
-padding:18px 48px;
-
-border-radius:50px;
-
-font-weight:700;
-
-font-size:22px;
-
-transition:.35s;
-
-}
-
-.play-button:hover{
-
-transform:translateY(-5px);
-
-box-shadow:0 0 30px #39ff14;
+background-attachment:fixed;
 
 }
 
