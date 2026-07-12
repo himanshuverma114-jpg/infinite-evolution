@@ -1,163 +1,113 @@
-// =========================
-// NAVBAR EFFECT
-// =========================
+// =============================
+// Infinite Evolution Website
+// =============================
 
-const navbar = document.querySelector(".navbar");
+// Navbar effect
+const navbar = document.querySelector(".top");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
+    if (!navbar) return;
 
-if(window.scrollY>30){
+    if (window.scrollY > 30) {
+        navbar.style.background = "#0b1020";
+        navbar.style.boxShadow = "0 10px 25px rgba(0,0,0,.35)";
+    } else {
+        navbar.style.background = "#121a30";
+        navbar.style.boxShadow = "none";
+    }
+});
 
-navbar.style.background="rgba(5,8,22,.92)";
-navbar.style.boxShadow="0 15px 30px rgba(0,0,0,.45)";
+// =============================
+// Scroll Reveal Animation
+// =============================
 
-}else{
+const observer = new IntersectionObserver((entries) => {
 
-navbar.style.background="rgba(0,0,0,.45)";
-navbar.style.boxShadow="none";
+    entries.forEach(entry => {
 
-}
+        if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0px)";
+
+        }
+
+    });
+
+}, {
+    threshold: 0.15
+});
+
+document.querySelectorAll(".card, .gallery img, .videos video, .heroimg").forEach(el => {
+
+    el.style.opacity = "0";
+    el.style.transform = "translateY(40px)";
+    el.style.transition = "all .7s ease";
+
+    observer.observe(el);
 
 });
 
+// =============================
+// Screenshot Lightbox
+// =============================
 
-// =========================
-// SCROLL ANIMATION
-// =========================
+document.querySelectorAll(".gallery img").forEach(img => {
 
-const observer=new IntersectionObserver((entries)=>{
+    img.addEventListener("click", () => {
 
-entries.forEach(entry=>{
+        const overlay = document.createElement("div");
 
-if(entry.isIntersecting){
+        overlay.style.position = "fixed";
+        overlay.style.left = "0";
+        overlay.style.top = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.background = "rgba(0,0,0,.92)";
+        overlay.style.display = "flex";
+        overlay.style.justifyContent = "center";
+        overlay.style.alignItems = "center";
+        overlay.style.cursor = "pointer";
+        overlay.style.zIndex = "99999";
 
-entry.target.style.opacity="1";
-entry.target.style.transform="translateY(0px)";
+        const image = document.createElement("img");
 
-}
+        image.src = img.src;
+        image.style.maxWidth = "90%";
+        image.style.maxHeight = "90%";
+        image.style.borderRadius = "18px";
+        image.style.boxShadow = "0 0 35px rgba(46,204,113,.5)";
 
-});
+        overlay.appendChild(image);
 
-},{
-threshold:.12
-});
+        overlay.onclick = () => {
 
-document.querySelectorAll(".card,.gallery img,.video-grid video,.banner").forEach(el=>{
+            overlay.remove();
 
-el.style.opacity="0";
-el.style.transform="translateY(50px)";
-el.style.transition=".8s";
+        };
 
-observer.observe(el);
+        document.body.appendChild(overlay);
 
-});
-
-
-// =========================
-// IMAGE LIGHTBOX
-// =========================
-
-const overlay=document.createElement("div");
-
-overlay.id="lightbox";
-
-overlay.innerHTML="<img>";
-
-document.body.appendChild(overlay);
-
-const overlayImg=overlay.querySelector("img");
-
-document.querySelectorAll(".gallery img").forEach(img=>{
-
-img.onclick=()=>{
-
-overlay.style.display="flex";
-
-overlayImg.src=img.src;
-
-}
+    });
 
 });
 
-overlay.onclick=()=>{
+// =============================
+// Download Button Pulse
+// =============================
 
-overlay.style.display="none";
+setInterval(() => {
 
-};
+    document.querySelectorAll(".btn").forEach(btn => {
 
+        btn.animate([
+            { transform: "scale(1)" },
+            { transform: "scale(1.05)" },
+            { transform: "scale(1)" }
+        ], {
+            duration: 900
+        });
 
-// =========================
-// BUTTON PULSE
-// =========================
+    });
 
-setInterval(()=>{
-
-document.querySelectorAll(".play-button,.download-btn").forEach(btn=>{
-
-btn.animate([
-
-{transform:"scale(1)"},
-
-{transform:"scale(1.06)"},
-
-{transform:"scale(1)"}
-
-],{
-
-duration:900
-
-});
-
-});
-
-},4500);
-
-//=========================
-// COUNTERS
-//=========================
-
-const counters=document.querySelectorAll(".counter");
-
-const counterObserver=new IntersectionObserver((entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-const counter=entry.target;
-
-const target=+counter.dataset.target;
-
-let value=0;
-
-const speed=Math.ceil(target/60);
-
-const timer=setInterval(()=>{
-
-value+=speed;
-
-if(value>=target){
-
-value=target;
-
-clearInterval(timer);
-
-}
-
-counter.textContent=value+"+";
-
-},25);
-
-counterObserver.unobserve(counter);
-
-}
-
-});
-
-});
-
-counters.forEach(counter=>{
-
-counterObserver.observe(counter);
-
-});
+}, 5000);
