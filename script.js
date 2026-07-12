@@ -1,70 +1,71 @@
-// ===== Scroll Reveal =====
-const observer = new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
+// Infinite Evolution Website
+// Premium interactions
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Navbar shadow while scrolling
+    const navbar = document.querySelector(".navbar");
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 40) {
+            navbar.style.background = "rgba(0,0,0,.85)";
+            navbar.style.boxShadow = "0 8px 30px rgba(0,0,0,.45)";
+        } else {
+            navbar.style.background = "rgba(0,0,0,.45)";
+            navbar.style.boxShadow = "none";
+        }
+
+    });
+
+    // Reveal animation
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+
+        });
+
+    }, {
+        threshold: 0.15
+    });
+
+    document.querySelectorAll(".card,.banner,.screenshots,.download").forEach(el => {
+
+        el.style.opacity = "0";
+        el.style.transform = "translateY(60px)";
+        el.style.transition = "all .8s ease";
+
+        observer.observe(el);
+
+    });
+
+    // Hero button effect
+    const playBtn = document.querySelectorAll(".play-button,.download-btn");
+
+    playBtn.forEach(btn => {
+
+        btn.addEventListener("mouseenter", () => {
+            btn.style.transform = "scale(1.08)";
+        });
+
+        btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "";
+        });
+
+    });
+
+});
+
+// Footer year
+const footer = document.querySelector("footer p");
+
+if (footer) {
+
+    footer.innerHTML = "© " + new Date().getFullYear() + " Infinite Evolution";
+
 }
-});
-},{threshold:0.15});
-
-document.querySelectorAll(".card,.hero,.section").forEach(el=>{
-el.classList.add("hidden");
-observer.observe(el);
-});
-
-// ===== Animated Stars =====
-const starCount=180;
-
-for(let i=0;i<starCount;i++){
-
-const star=document.createElement("div");
-
-star.className="star";
-
-star.style.left=Math.random()*100+"vw";
-star.style.top=Math.random()*100+"vh";
-
-star.style.animationDuration=(4+Math.random()*8)+"s";
-
-star.style.opacity=Math.random();
-
-document.body.appendChild(star);
-
-}
-
-// ===== Mouse Glow =====
-const glow=document.createElement("div");
-
-glow.className="cursorGlow";
-
-document.body.appendChild(glow);
-
-document.addEventListener("mousemove",(e)=>{
-
-glow.style.left=e.clientX+"px";
-glow.style.top=e.clientY+"px";
-
-});
-
-// ===== Button Animation =====
-setInterval(()=>{
-
-document.querySelectorAll(".btn").forEach(btn=>{
-
-btn.animate([
-
-{transform:"scale(1)"},
-
-{transform:"scale(1.06)"},
-
-{transform:"scale(1)"}
-
-],{
-
-duration:900
-
-});
-
-});
-
-},4500);
