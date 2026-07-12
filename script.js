@@ -111,3 +111,53 @@ duration:900
 });
 
 },4500);
+
+//=========================
+// COUNTERS
+//=========================
+
+const counters=document.querySelectorAll(".counter");
+
+const counterObserver=new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+const counter=entry.target;
+
+const target=+counter.dataset.target;
+
+let value=0;
+
+const speed=Math.ceil(target/60);
+
+const timer=setInterval(()=>{
+
+value+=speed;
+
+if(value>=target){
+
+value=target;
+
+clearInterval(timer);
+
+}
+
+counter.textContent=value+"+";
+
+},25);
+
+counterObserver.unobserve(counter);
+
+}
+
+});
+
+});
+
+counters.forEach(counter=>{
+
+counterObserver.observe(counter);
+
+});
